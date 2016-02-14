@@ -25,14 +25,27 @@ import com.st.remote.service.StockService;
 @Service
 public class StockServiceImpl implements StockService {
 
+	/**
+	 * Service to map between the response from remote services and internal domains
+	 */
 	@Autowired
 	private ResourceMapper mapper;
-
+	/**
+	 * New York State Exchange market
+	 */
 	private static final String NYSE = "NYSE";
-
-	private static final String URL_MARKIT_ON_DEMAND = "http://dev.markitondemand.com/Api/v2/Quote/json";
-	private static final String URL_YAHOO_WEB_SERVICE = "http://finance.yahoo.com/webservice/v1/symbols/{symbol}/quote";
-
+	/**
+	 * URL to access Yahoo stock service
+	 */
+	private static final String URL_YAHOO_WEB_SERVICE = "URL_YAHOO_WEB_SERVICE";
+	/**
+	 * Url to access Markit on demand services
+	 */
+	private static final String URL_MARKIT_ON_DEMAND = "URL_MARKIT_ON_DEMAND";
+	
+	/**
+	 * Spring interface for restfull operations
+	 */
 	private RestOperations restTemplate = new RestTemplate();
 
 	@Override
@@ -41,7 +54,9 @@ public class StockServiceImpl implements StockService {
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 
-		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL_MARKIT_ON_DEMAND).queryParam("symbol",
+		String url = System.getenv(URL_MARKIT_ON_DEMAND);
+		
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url).queryParam("symbol",
 				ticker);
 
 		HttpEntity<?> entity = new HttpEntity<>(headers);
@@ -56,8 +71,9 @@ public class StockServiceImpl implements StockService {
 	public ResourceDto findStockByTickerAndMarket(String market, String ticker) {
 		ResourceDto resource = new ResourceDto();
 		HttpHeaders headers = new HttpHeaders();
+		String url = System.getenv(URL_YAHOO_WEB_SERVICE);
 		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
-		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL_YAHOO_WEB_SERVICE).queryParam("format",
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url).queryParam("format",
 				"json");
 		builder.queryParam("view", "detail");
 		UriComponents uriComponents = null;
