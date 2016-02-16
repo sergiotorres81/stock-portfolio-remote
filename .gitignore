@@ -7,3 +7,4 @@
 /log.info
 .mvn/
 .factorypath
+/.apt_generated/
