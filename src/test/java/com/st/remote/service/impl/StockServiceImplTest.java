@@ -39,7 +39,6 @@ public class StockServiceImplTest {
 		stock.setSymbol("MCD");
 		stock.setStatus("SUCCESS");
 		stock.setName("McDonald's Corp");
-
 		return stock;
 	}
 
