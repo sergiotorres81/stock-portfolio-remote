@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.st.remote.configuration.RestProperties;
 import com.st.remote.domain.internal.ResourceDto;
 import com.st.remote.domain.markit.Stock;
 import com.st.remote.domain.yahoo.ResourceElement;
@@ -30,18 +31,17 @@ public class StockServiceImpl implements StockService {
 	 */
 	@Autowired
 	private ResourceMapper mapper;
+
+	/**
+	 * Properties to access remote rest services
+	 */
+	@Autowired
+	private RestProperties restProperties;
+
 	/**
 	 * New York State Exchange market
 	 */
 	private static final String NYSE = "NYSE";
-	/**
-	 * URL to access Yahoo stock service
-	 */
-	private static final String URL_YAHOO_WEB_SERVICE = "URL_YAHOO_WEB_SERVICE";
-	/**
-	 * Url to access Markit on demand services
-	 */
-	private static final String URL_MARKIT_ON_DEMAND = "URL_MARKIT_ON_DEMAND";
 	
 	/**
 	 * Spring interface for restfull operations
@@ -54,7 +54,7 @@ public class StockServiceImpl implements StockService {
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 
-		String url = System.getenv(URL_MARKIT_ON_DEMAND);
+		String url = restProperties.getUrlMarketMarkitOnDemand();
 		
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url).queryParam("symbol",
 				ticker);
@@ -71,7 +71,7 @@ public class StockServiceImpl implements StockService {
 	public ResourceDto findStockByTickerAndMarket(String market, String ticker) {
 		ResourceDto resource = new ResourceDto();
 		HttpHeaders headers = new HttpHeaders();
-		String url = System.getenv(URL_YAHOO_WEB_SERVICE);
+		String url = restProperties.getUrlMareketYahooWebService();
 		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url).queryParam("format",
 				"json");

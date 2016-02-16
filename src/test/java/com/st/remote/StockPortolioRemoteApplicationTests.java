@@ -13,7 +13,6 @@ public class StockPortolioRemoteApplicationTests {
 
 	@Test
 	public void contextLoads() {
-		System.out.println("something");
 	}
 
 }

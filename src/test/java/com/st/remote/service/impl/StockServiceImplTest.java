@@ -21,6 +21,7 @@ public class StockServiceImplTest {
 	@Autowired
 	private StockService stockService;
 
+
 	@Test
 	public void testFindStockByTicker() {
 		System.out.println("testFindStockByTicker");
@@ -36,13 +37,13 @@ public class StockServiceImplTest {
 		// "Status":"SUCCESS","Name":"McDonald's Corp","Symbol":"MCD"
 		Stock stock = new Stock();
 		stock.setSymbol("MCD");
-		stock.setStatus("Success");
+		stock.setStatus("SUCCESS");
 		stock.setName("McDonald's Corp");
 
 		return stock;
 	}
 
-	@Test
+	// @Test
 	public void testFindStockByTickerAndMarket() {
 		Stock stock = createStockForYahoo();
 	}
