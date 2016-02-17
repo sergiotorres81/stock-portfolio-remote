@@ -10,6 +10,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.st.remote.StockPortolioRemoteApplication;
+import com.st.remote.domain.internal.FieldsDto;
+import com.st.remote.domain.internal.ResourceDto;
 import com.st.remote.domain.markit.Stock;
 import com.st.remote.service.StockService;
 
@@ -44,12 +46,19 @@ public class StockServiceImplTest {
 
 	// @Test
 	public void testFindStockByTickerAndMarket() {
-		Stock stock = createStockForYahoo();
+		ResourceDto localResource = createResourceForYahoo();
+		ResourceDto remoteResource = stockService.findStockByTickerAndMarket("NYSE", "MCD");
+		assertEquals(localResource.getType(), remoteResource.getType());
 	}
 
-	private Stock createStockForYahoo() {
-		// TODO Auto-generated method stub
-		return null;
+	private ResourceDto createResourceForYahoo() {
+		ResourceDto resource = new ResourceDto();
+		resource.setType("Quote");
+		FieldsDto fields = new FieldsDto();
+		fields.setName("McDonald's Corp.");
+		fields.setSymbol("MCD");
+		resource.setFields(fields);
+		return resource;
 	}
 
 }
