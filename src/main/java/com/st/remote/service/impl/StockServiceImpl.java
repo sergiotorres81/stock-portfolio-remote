@@ -17,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.st.remote.configuration.RestProperties;
 import com.st.remote.domain.internal.ResourceDto;
+import com.st.remote.domain.internal.StockDto;
 import com.st.remote.domain.markit.Stock;
 import com.st.remote.domain.yahoo.ResourceElement;
 import com.st.remote.domain.yahoo.YahooResource;
@@ -49,7 +50,8 @@ public class StockServiceImpl implements StockService {
 	private RestOperations restTemplate = new RestTemplate();
 
 	@Override
-	public Stock findStockByTicker(String ticker) {
+	public StockDto findStockByTicker(String ticker) {
+		StockDto stockDto = new StockDto();
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
@@ -63,8 +65,10 @@ public class StockServiceImpl implements StockService {
 
 		HttpEntity<Stock> response = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, entity,
 				Stock.class);
-
-		return response.getBody();
+		if (response.getBody() != null) {
+			mapper.map(response.getBody(), stockDto);
+		}
+		return stockDto;
 	}
 
 	@Override

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.st.remote.domain.internal.ResourceDto;
-import com.st.remote.domain.markit.Stock;
+import com.st.remote.domain.internal.StockDto;
 import com.st.remote.service.StockService;
 
 @RestController
@@ -16,7 +16,7 @@ public class StockRestController {
 	private StockService stockService;
 
 	@RequestMapping("/ticker/{ticker}")
-	public Stock findStockByTicker(@PathVariable String ticker) {
+	public StockDto findStockByTicker(@PathVariable String ticker) {
 		return stockService.findStockByTicker(ticker);
 	}
 

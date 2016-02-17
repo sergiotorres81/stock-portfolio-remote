@@ -1,7 +1,7 @@
 package com.st.remote.service;
 
 import com.st.remote.domain.internal.ResourceDto;
-import com.st.remote.domain.markit.Stock;
+import com.st.remote.domain.internal.StockDto;
 
 public interface StockService {
 
@@ -14,7 +14,7 @@ public interface StockService {
 	 * @param ticker
 	 * @return
 	 */
-	Stock findStockByTicker(String ticker);
+	StockDto findStockByTicker(String ticker);
 
 	/**
 	 * This method will try to find a remote resource using Yahoo API

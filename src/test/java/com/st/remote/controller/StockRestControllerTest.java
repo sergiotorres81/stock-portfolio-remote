@@ -37,9 +37,9 @@ public class StockRestControllerTest {
 	public void getTicker() throws Exception {
 		this.mockMvc.perform(get("/ticker/MCD").accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isOk())
-		.andExpect(jsonPath("$.Symbol").value("MCD"))
-		.andExpect(jsonPath("$.Status").value("SUCCESS"))
-		.andExpect(jsonPath("$.Name").value("McDonald's Corp"));
+		.andExpect(jsonPath("$.symbol").value("MCD"))
+		.andExpect(jsonPath("$.status").value("SUCCESS"))
+		.andExpect(jsonPath("$.name").value("McDonald's Corp"));
 	}
 	
 	@Test

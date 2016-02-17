@@ -12,6 +12,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.st.remote.StockPortolioRemoteApplication;
 import com.st.remote.domain.internal.FieldsDto;
 import com.st.remote.domain.internal.ResourceDto;
+import com.st.remote.domain.internal.StockDto;
 import com.st.remote.domain.markit.Stock;
 import com.st.remote.service.StockService;
 
@@ -28,7 +29,7 @@ public class StockServiceImplTest {
 	public void testFindStockByTicker() {
 		System.out.println("testFindStockByTicker");
 		Stock stock = createStockForMarkit();
-		Stock remote = stockService.findStockByTicker("MCD");
+		StockDto remote = stockService.findStockByTicker("MCD");
 		assertEquals(stock.getSymbol(), remote.getSymbol());
 		assertEquals(stock.getStatus(), remote.getStatus());
 		assertEquals(stock.getName(), remote.getName());
