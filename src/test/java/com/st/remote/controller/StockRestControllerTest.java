@@ -1,8 +1,8 @@
 package com.st.remote.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -40,6 +40,15 @@ public class StockRestControllerTest {
 		.andExpect(jsonPath("$.Symbol").value("MCD"))
 		.andExpect(jsonPath("$.Status").value("SUCCESS"))
 		.andExpect(jsonPath("$.Name").value("McDonald's Corp"));
+	}
+	
+	@Test
+	public void getTickerByMaket() throws Exception {
+		this.mockMvc.perform(get("/market/NYSE/ticker/MCD").accept(MediaType.APPLICATION_JSON))
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$.fields.symbol").value("MCD"))
+		.andExpect(jsonPath("$.fields.issuer_name").value("McDonald's Corp."))
+		.andExpect(jsonPath("$.type").value("Quote"));
 	}
 	
 }
