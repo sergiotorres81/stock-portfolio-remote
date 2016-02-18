@@ -8,3 +8,4 @@
 .mvn/
 .factorypath
 /.apt_generated/
+/hs*.log
