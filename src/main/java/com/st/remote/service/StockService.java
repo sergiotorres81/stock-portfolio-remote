@@ -3,6 +3,13 @@ package com.st.remote.service;
 import com.st.remote.domain.internal.ResourceDto;
 import com.st.remote.domain.internal.StockDto;
 
+/**
+ * This service hides the complexity for all remote calls to Yahoo and Markit
+ * services. It will return objects from internal domain only.
+ * 
+ * @author sergio.torres.lozano
+ *
+ */
 public interface StockService {
 
 	/**
